@@ -11,8 +11,10 @@ void averageLegoBlockColor(const uchar4* const rgbaImage,
                            int numCols, 
                            const int legoSize)
 {
-
-  int legoColorArray[20];
+  //Array of lego colors.  In order:
+  //Red, Green, Blue, Cyan, Magenta, Yellow, White. Gray, Black	
+  int legoColorArray[20] = [255,65280,16711680,16776960,16711935,
+  	                        65535,16777215,8421504,0]
   __shared__ int legoBlockNums[10000000];
   //__shared__ int legoBlockNums[numRows * numCols];
   int absolute_image_position_x = (blockDim.x * blockIdx.x) + threadIdx.x;
