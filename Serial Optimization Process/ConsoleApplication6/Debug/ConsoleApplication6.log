@@ -1,0 +1,32 @@
+﻿Build started 11/30/2014 7:17:11 PM.
+     1>Project "C:\Users\Amber James\Documents\Visual Studio 2012\Projects\ConsoleApplication6\ConsoleApplication6\ConsoleApplication6.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ConsoleApplication6.cpp
+         ConsoleApplication6.cpp
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(20): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(101): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(103): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(177): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(179): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(184): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(187): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(218): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(220): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(226): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(228): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(248): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(250): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(288): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(290): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(295): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(297): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(323): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\amber james\documents\visual studio 2012\projects\consoleapplication6\consoleapplication6\consoleapplication6.cpp(325): warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Amber James\Documents\Visual Studio 2012\Projects\ConsoleApplication6\Debug\ConsoleApplication6.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Amber James\Documents\Visual Studio 2012\Projects\ConsoleApplication6\Debug\ConsoleApplication6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Amber James\Documents\Visual Studio 2012\Projects\ConsoleApplication6\Debug\ConsoleApplication6.lib" /MACHINE:X86 Debug\ConsoleApplication6.obj
+         ConsoleApplication6.vcxproj -> C:\Users\Amber James\Documents\Visual Studio 2012\Projects\ConsoleApplication6\Debug\ConsoleApplication6.exe
+     1>Done Building Project "C:\Users\Amber James\Documents\Visual Studio 2012\Projects\ConsoleApplication6\ConsoleApplication6\ConsoleApplication6.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.00

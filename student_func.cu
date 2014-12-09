@@ -1,12 +1,7 @@
-
-
-
 #include "reference_calc.cpp"
 #include "utils.h"
 #include <stdio.h>
 #include <cstdlib>
-
-
 
 
 __global__
@@ -128,7 +123,7 @@ void your_gaussian_blur(const uchar4 * const h_inputImageRGBA, uchar4 * const d_
   int legoSize = 5;
   const dim3 blockSize(32, 32, 1);  //TODO
   const dim3 gridSize(ceil(numCols/blockSize.x)+1,ceil(numRows/blockSize.y)+1);    
-   int numBlockCols = (numCols/legoSize);
+  int numBlockCols = (numCols/legoSize);
   int numBlockRows = (numRows/legoSize);
   const dim3 blockSize2(32, 32, 1); 
   const dim3 gridSize2((numBlockCols/blockSize2.x)+1,(numBlockRows/blockSize2.y)+1);  
@@ -152,7 +147,3 @@ void your_gaussian_blur(const uchar4 * const h_inputImageRGBA, uchar4 * const d_
 }
 
 
-
-void cleanup() {
-
-}
