@@ -1,69 +1,153 @@
-//Lego Layout Logic Master
-//Cuda Functions
+
+
 
 #include "reference_calc.cpp"
 #include "utils.h"
+#include <stdio.h>
+#include <cstdlib>
+
+
+
+
+__global__
+void averageBlocks(uchar4* const inputImageRGBA,
+                      int numRows,
+                      int numCols,
+                      uchar4* const outputImageRGBA,
+                     int legoSize)
+{
+    int block_x = blockDim.x * blockIdx.x + threadIdx.x;
+    int block_y = blockDim.y * blockIdx.y + threadIdx.y;
+    int pixelX;
+    int pixelY;
+    int numPixelsAveraged = 0;
+    int redAverage = 0; 
+    int greenAverage = 0; 
+    int blueAverage = 0; 
+    //int max_x = blockDim.x * gridDim.x;
+    for(int i = 0; i < legoSize; i++)
+    {
+        pixelY = (block_y *legoSize) + i;
+       for(int j = 0; j < legoSize; j++)
+       {
+           pixelX = block_x * legoSize + j;
+           int id = pixelX + (pixelY * numCols);
+           if(id < numRows*numCols)
+           {
+                redAverage = redAverage + inputImageRGBA[id].x; 
+                greenAverage = greenAverage + inputImageRGBA[id].y; 
+                blueAverage = blueAverage + inputImageRGBA[id].z; 
+                numPixelsAveraged ++;
+           }
+       }
+     }
+     redAverage = (redAverage / numPixelsAveraged);
+     blueAverage = (blueAverage / numPixelsAveraged);
+     greenAverage = (greenAverage / numPixelsAveraged);
+     uchar4 outputPixel = make_uchar4(redAverage, greenAverage, blueAverage, 255);
+    for(int i = 0; i < legoSize; i++)
+    {
+        pixelY = ((block_y*legoSize) + i);
+       for(int j = 0; j < legoSize; j++)
+       {
+           pixelX = block_x * legoSize + j;
+           int id = pixelX + pixelY * numCols;
+           if(id < numRows*numCols)
+           {
+               printf ("RGB: %d %d %d\n", redAverage, greenAverage, blueAverage);
+                inputImageRGBA[id] = outputPixel;
+           }
+       }
+     }
+}
 
 __global__
-void averageLegoBlockColor(const uchar4* const rgbaImage,
-                           unsigned char* const greyImage,
-                           int numRows, 
-                           int numCols, 
-                           const int legoSize)
+void separateChannels(const uchar4* const inputImageRGBA,
+                      int numRows,
+                      int numCols,
+                      uchar4* const outputImageRGBA,
+                     int legoSize)
 {
-  //Array of lego colors.  In order:
-  //Red, Green, Blue, Cyan, Magenta, Yellow, White. Gray, Black	
-  int legoColorArray[20] = [255,65280,16711680,16776960,16711935,
-  	                        65535,16777215,8421504,0]
-  __shared__ int legoBlockNums[10000000];
-  //__shared__ int legoBlockNums[numRows * numCols];
-  int absolute_image_position_x = (blockDim.x * blockIdx.x) + threadIdx.x;
-  int absolute_image_position_y = (blockDim.y * blockIdx.y) + threadIdx.y; 
-  int id = absolute_image_position_x + (absolute_image_position_y * numCols);
-  int legoRowNum = (absolute_image_position_x / legoSize) + 1;
-  int legoColumnNum = (absolute_image_position_y / legoSize) + 1;
-  int legoPieceId = legoRowNum + (legoColumnNum * (numCols/legoSize));
-  int blockNums[10000000];
-  blockNums[id] = legoPieceId;
-  __syncthreads();
-  float redAverage = 0;
-  float greenAverage = 0;
-  float blueAverage = 0;
-  int numPixelsAveraged;
-  for(int i = 0; i < numRows*numCols; i++) //loop should find the pixel itself
-  {
-    if(legoBlockNums[i] == legoPieceId)
-		{
-		  redAverage = redAverage + rgbaImage[i].x;
-			greenAverage = greenAverage + rgbaImage[i].y;
-		  blueAverage = blueAverage + rgbaImage[i].z;
-			numPixelsAveraged ++;
-		}	
-  }
-  //convert rgb colors to a single integer color
-  int rgb_to_int = redAverage;
-  rgb_to_int = (rgb_to_int << 8) + greenAverage;
-  rgb_to_int = (rgb_to_int << 8) + blueAverage;
-  greyImage[id] = rgb_to_int;
-  //greyImage[id].x = redAverage /numPixelsAveraged;
-  //greyImage[id].y = greenAverage /numPixelsAveraged;
-  //greyImage[id].z = blueAverage /numPixelsAveraged;
-}	
+    const int baseLegoRed[9] =   {255,40 ,110,193,52 ,245,242,161,27};
+    const int baseLegoGreen[9] = {0  ,127,153,223,43 ,205,243,165,42};
+    const int baseLegoBlue[9] =  {0  ,70 ,201,240,117,47 ,242,162,52};
+    int combined_x = blockDim.x * blockIdx.x + threadIdx.x;
+    int combined_y = blockDim.y * blockIdx.y + threadIdx.y;
+    //int max_x = blockDim.x * gridDim.x;
+    int id = combined_x + combined_y * numCols;
+    if(id < numRows*numCols){ 
+        
+   
+        
+      
+    int leastDistance = 10000;
+    int thisDistance;
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
+    printf ("RGB: %d %d %d\n", red, green, blue);
+    for(int i = 0; i < (sizeof(baseLegoRed)/sizeof(int)); i++)
+    {
+           thisDistance = ((abs(baseLegoRed[i] - inputImageRGBA[id].x) * abs(baseLegoRed[i] - inputImageRGBA[id].x)) + 
+                           (abs(baseLegoGreen[i] - inputImageRGBA[id].y) *  abs(baseLegoGreen[i] - inputImageRGBA[id].y)) + 
+                           (abs(baseLegoBlue[i] - inputImageRGBA[id].z) * abs(baseLegoBlue[i] - inputImageRGBA[id].z)));
+          
+
+          if(thisDistance < leastDistance)
+          {
+                  leastDistance = thisDistance;
+                  red = baseLegoRed[i];
+                  green = baseLegoGreen[i];
+                  blue = baseLegoBlue[i];
+          }
+        
+        }
+      uchar4 outputPixel = make_uchar4(red, green, blue, 255);
+      outputImageRGBA[id] = outputPixel;
+      }
+}
 
 
 
-void legoBlockCovert(const uchar4 * const h_rgbaImage, uchar4 * const d_rgbaImage,
-                     unsigned char* const d_greyImage, const size_t numRows, const size_t numCols,
-                     const int legoBlockSize)
+
+void allocateMemoryAndCopyToGPU(const size_t numRowsImage, const size_t numColsImage,
+                                const float* const h_filter, const size_t filterWidth)
 {
+
+
+
+}
+
+void your_gaussian_blur(const uchar4 * const h_inputImageRGBA, uchar4 * const d_inputImageRGBA,
+                        uchar4* const d_outputImageRGBA, const size_t numRows, const size_t numCols,
+                        unsigned char *d_redBlurred, 
+                        unsigned char *d_greenBlurred, 
+                        unsigned char *d_blueBlurred,
+                        const int filterWidth)
+{
+  int legoSize = 5;
   const dim3 blockSize(32, 32, 1);  //TODO
-  const dim3 gridSize(ceil(numCols/blockSize.x)+1,ceil(numRows/blockSize.y)+1);  
-  
+  const dim3 gridSize(ceil(numCols/blockSize.x)+1,ceil(numRows/blockSize.y)+1);    
+   int numBlockCols = (numCols/legoSize) + 1;
+  int numBlockRows = (numRows/legoSize) + 1;
+  const dim3 blockSize2(32, 32, 1); 
+  const dim3 gridSize2(ceil(numBlockCols/blockSize2.x),ceil(numBlockRows/blockSize2.y));  
+   averageBlocks<<<gridSize2, blockSize2>>>(d_inputImageRGBA,
+                      numRows,
+                      numCols,
+                      d_outputImageRGBA,
+                      legoSize);
 
-averageLegoBlockColor<<<gridSize, blockSize, sizeof(int) * numCols * numRows>>>(d_rgbaImage,
-                   d_greyImage,
-                   numRows, numCols, legoBlockSize);
-				   
+  cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+    
+      separateChannels<<<gridSize, blockSize>>>(d_inputImageRGBA,
+                      numRows,
+                      numCols,
+                      d_outputImageRGBA,
+                      legoSize
+                     );
+
+
 }
 
 
