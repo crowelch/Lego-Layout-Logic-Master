@@ -85,7 +85,7 @@ void separateChannels(const uchar4* const inputImageRGBA,
     unsigned char red;
     unsigned char green;
     unsigned char blue;
-    printf ("RGB: %d %d %d\n", red, green, blue);
+   
     for(int i = 0; i < (sizeof(baseLegoRed)/sizeof(int)); i++)
     {
            thisDistance = ((abs(baseLegoRed[i] - inputImageRGBA[id].x) * abs(baseLegoRed[i] - inputImageRGBA[id].x)) + 
@@ -128,10 +128,11 @@ void your_gaussian_blur(const uchar4 * const h_inputImageRGBA, uchar4 * const d_
   int legoSize = 5;
   const dim3 blockSize(32, 32, 1);  //TODO
   const dim3 gridSize(ceil(numCols/blockSize.x)+1,ceil(numRows/blockSize.y)+1);    
-   int numBlockCols = (numCols/legoSize) + 1;
-  int numBlockRows = (numRows/legoSize) + 1;
+   int numBlockCols = (numCols/legoSize);
+  int numBlockRows = (numRows/legoSize);
   const dim3 blockSize2(32, 32, 1); 
-  const dim3 gridSize2(ceil(numBlockCols/blockSize2.x),ceil(numBlockRows/blockSize2.y));  
+  const dim3 gridSize2((numBlockCols/blockSize2.x)+1,(numBlockRows/blockSize2.y)+1);  
+  //constc dim3 gridSize2(ceil(numBlockCols/blockSize2.x),ceil(numBlockRows/blockSize2.y));  
    averageBlocks<<<gridSize2, blockSize2>>>(d_inputImageRGBA,
                       numRows,
                       numCols,
