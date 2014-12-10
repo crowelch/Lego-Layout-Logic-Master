@@ -166,6 +166,8 @@ void your_gaussian_blur(const uchar4 * const h_inputImageRGBA, uchar4 * const d_
            counter++;
        }
     }
+	
+	optimize(deviceResult,numBlockRows,numBlockCols);
         
 
 
